@@ -1,0 +1,12 @@
+{
+  "productionHost": "smnrkssn-sample.herokuapp.com",
+  "host": "localhost",
+  "port": 8080,
+  "database": {
+    "name": "sample_database",
+    "dialect": "mysql",
+    "port": 3306,
+    "username": "root",
+    "password": ""
+  }
+}
