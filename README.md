@@ -6,7 +6,7 @@
 
 ### Start developing
 1. Open XAMPP and start MySQL + Apache. You can then view the database under [localhost/phpmyadmin](http://localhost/phpmyadmin)
-2. `npm run startServer`
+2. `npm run dev`
 
 ### Project Structure:
 - **server**: Contains all backend code. Based on [express](https://expressjs.com/) and [sequelize-typescript](https://www.npmjs.com/package/sequelize-typescript).
@@ -21,7 +21,7 @@
 | Script:                   | Effect:                        |
 | --------------------------| ------------------------------ |
 | `npm run start`           | Starts the server in production mode and tells it to serve `client/build/index.html` |
-| `npm run startServer`     | Runs the server in the development mode.<br> The server will restart if you make edits under the server folder.<br> |
-| `npm run testServer`      | Runs all tests under `server/test` |
+| `npm run dev`             | Runs the server in the development mode.<br> The server will restart if you make edits under the server folder.<br> |
+| `npm run test`            | Runs all tests under `server/test` |
 | `npm run removeDatabase`  | Removes the database with the name defined in [settings.json](./server/settings.json). |
 | `npm run defaultDatabase` | First removes any existing database then loads all [defaultData](server/utils/constants/defaultData.ts). |

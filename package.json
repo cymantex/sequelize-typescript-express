@@ -42,8 +42,8 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node server/index.ts",
-    "startServer": "nodemon",
-    "testServer": "cross-env NODE_ENV=test ts-mocha server/test/**/*.ts --timeout 10000",
+    "dev": "nodemon",
+    "test": "cross-env NODE_ENV=test ts-mocha server/test/**/*.ts --timeout 10000",
     "removeDatabase": "ts-node scripts.ts removeDatabase",
     "defaultDatabase": "ts-node scripts.ts defaultDatabase"
   }
