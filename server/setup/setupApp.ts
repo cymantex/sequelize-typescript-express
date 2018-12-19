@@ -14,15 +14,6 @@ const addPlugins = (app: Express): void => {
     app.use(bodyParser.json());
     app.use(helmet());
     app.use(cookieParser());
-
-    if(constants.isProduction){
-        const projectRoot = path.resolve(`${__dirname}/../..`);
-        app.use(express.static(`${projectRoot}/client/build`));
-
-        app.get("/", (req, res) => {
-            res.sendFile(`${projectRoot}/client/build/index.html`);
-        });
-    }
 };
 
 const addRoutes = (app: Express, sequelize: Sequelize): void => {
@@ -34,6 +25,15 @@ const addRoutes = (app: Express, sequelize: Sequelize): void => {
     app.get("/form", csrfProtection, (req, res) => {
         res.render("send", {csrfToken: req.csrfToken()});
     });
+
+    if(constants.isProduction){
+        const projectRoot = path.resolve(`${__dirname}/../..`);
+        app.use(express.static(`${projectRoot}/client/build`));
+
+        app.get("*", (req, res) => {
+            res.sendFile(`${projectRoot}/client/build/index.html`);
+        });
+    }
 };
 
 export const setupApp = (sequelize: Sequelize): Express => {
