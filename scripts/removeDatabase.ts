@@ -1,8 +1,6 @@
-import {setupDatabase} from "../server/setup/setupDatabase";
-import settings from "../server/settings.json";
-import {Sequelize} from "sequelize-typescript";
+import Database from "../server/setup/Database";
+import {databaseOptions} from "../server/settings";
 
 export default async (): Promise<any> => {
-    const sequelize: Sequelize = await setupDatabase(settings.database);
-    return sequelize.query(`DROP DATABASE ${settings.database.name}`);
+    return new Database(databaseOptions).drop();
 };

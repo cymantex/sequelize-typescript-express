@@ -1,5 +1,3 @@
-import {Sequelize} from "sequelize-typescript";
-
 const defaultData: {[x: string]: object[]} = {
     Event: [
         {
@@ -8,14 +6,6 @@ const defaultData: {[x: string]: object[]} = {
             location: "Hagaskolan"
         }
     ]
-};
-
-export const loadDefaultData = async (sequelize: Sequelize): Promise<any> => {
-    return Promise.all(Object.keys(defaultData).map(model => {
-        return Promise.all(defaultData[model].map(data => {
-            return sequelize.models[model].create(data);
-        }));
-    }))
 };
 
 export default defaultData;
