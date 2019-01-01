@@ -15,7 +15,6 @@ declare global {
 class ServerTest {
     server: Server;
     database: Database;
-    app: http.Server;
 
     constructor(databaseOptions: SequelizeConfig, serverOptions: ServerOptions){
         this.database = new Database(databaseOptions);
@@ -24,12 +23,10 @@ class ServerTest {
 
     async start(): Promise<http.Server> {
         await this.database.drop();
-        await this.database.connect();
         return await this.server.start();
     }
 
     async stop(){
-        await this.database.close();
         await this.server.stop();
     }
 }

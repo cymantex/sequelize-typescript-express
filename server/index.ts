@@ -6,12 +6,7 @@ import {log} from "./utils/log";
 const database = new Database(databaseOptions);
 const server = new Server(serverOptions, database);
 
-
-database
-    .connect()
-    .then(() => server.start())
-    .catch(async err => {
-        log.error(err);
-        await database.close();
-        await server.stop();
-    });
+server.start().catch(async err => {
+    log.error(err);
+    await server.stop();
+});

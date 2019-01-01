@@ -11,10 +11,6 @@ export default class Database {
         this.sequelize = new Sequelize(options);
     }
 
-    getSequelize(): Sequelize {
-        return this.sequelize;
-    }
-
     async drop(): Promise<void> {
         const sequelize = new Sequelize(this.options);
         await sequelize.query(`DROP DATABASE ${this.options.database}`);

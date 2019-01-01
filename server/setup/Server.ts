@@ -9,6 +9,7 @@ import * as path from "path";
 import {constants} from "../utils/constants";
 import glob from "glob";
 import Database from "./Database";
+import {Sequelize} from "sequelize-typescript";
 
 export interface ServerOptions {
     port: number
@@ -27,13 +28,15 @@ export default class Server {
     }
 
     public async start(): Promise<http.Server> {
+        const sequelize = await this.database.connect();
         this.addPlugins();
-        this.addRoutes();
+        this.addRoutes(sequelize);
         return this.listen(this.options.port);
     }
 
     public async stop(): Promise<void> {
         if(this.server && this.server.listening){
+            await this.database.close();
             await this.server.close();
         }
     }
@@ -60,9 +63,9 @@ export default class Server {
         this.app.use(cors());
     };
 
-    private addRoutes (): void {
+    private addRoutes(sequelize: Sequelize): void {
         glob.sync(`${constants.serverRoot}/routes/*.ts`)
-            .forEach(routeFile => require(routeFile).default(this.app, this.database.getSequelize()));
+            .forEach(routeFile => require(routeFile).default(this.app, sequelize));
 
         if(constants.isProduction){
             const projectRoot = path.resolve(`${__dirname}/../..`);
